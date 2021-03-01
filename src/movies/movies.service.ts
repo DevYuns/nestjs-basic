@@ -11,17 +11,17 @@ export class MoviesService {
     return this.movies;
   }
 
-  getOne(id: string): Movie {
-    const movie = this.movies.find((movie) => movie.id === parseInt(id));
+  getOne(id: number): Movie {
+    const movie = this.movies.find((movie) => movie.id === id);
     if (!movie) {
       throw new NotFoundException(`Movie with Id ${id} not found.`);
     }
     return movie;
   }
 
-  deleteOne(id: string): void {
+  deleteOne(id: number): void {
     this.getOne(id);
-    this.movies = this.movies.filter((movie) => movie.id !== parseInt(id));
+    this.movies = this.movies.filter((movie) => movie.id !== id);
   }
 
   create(movieData: CreateMovieDto): boolean {
@@ -32,7 +32,7 @@ export class MoviesService {
     return true;
   }
 
-  update(id: string, updateData: CreateMovieDto) {
+  update(id: number, updateData: CreateMovieDto) {
     const movie = this.getOne(id);
     this.deleteOne(id);
     this.movies.push({ ...movie, ...updateData });
